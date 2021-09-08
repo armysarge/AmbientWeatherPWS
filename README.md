@@ -3,7 +3,6 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <br />
 <p align="center">
@@ -11,7 +10,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Best-README-Template</h3>
+  <h3 align="center">Personal Weather Station</h3>
 
   <p align="center">
     A local personal weather station database and dashboard for ambient weather devices!
@@ -110,7 +109,7 @@ Please ensure that you already have the following on your server:
 5. Download the AWNET app on your phone and connect to your Ambient Weather device 
 6. Enter the server details and path exactly like below:
   <a href="https://github.com/armysarge/AmbientWeatherPWS">
-    <img src="images/awnet.jpg" alt="Logo" width="200" height="369">
+    <img src="images/awnet.jpeg" alt="AWNET" width="200" height="369">
   </a>
 7. If you did everything right, it should start posting and show the information on the dashboard
 
@@ -180,5 +179,5 @@ Project Link: [https://github.com/armysarge/AmbientWeatherPWS](https://github.co
 [issues-shield]: https://img.shields.io/github/issues/armysarge/AmbientWeatherPWS.svg?style=for-the-badge
 [issues-url]: https://github.com/armysarge/AmbientWeatherPWS/issues
 [license-shield]: https://img.shields.io/github/license/armysarge/AmbientWeatherPWS.svg?style=for-the-badge
-[license-url]: https://github.com/armysarge/AmbientWeatherPWS/blob/master/LICENSE.txt
-[product-screenshot]: images/screenshot.png
+[license-url]: https://github.com/armysarge/AmbientWeatherPWS/blob/main/LICENSE
+[product-screenshot]: images/screenshot.PNG
