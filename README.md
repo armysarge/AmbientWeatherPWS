@@ -108,9 +108,7 @@ Please ensure that you already have the following on your server:
    ```
 5. Download the AWNET app on your phone and connect to your Ambient Weather device 
 6. Enter the server details and path exactly like below:
-  <a href="https://github.com/armysarge/AmbientWeatherPWS">
-    <img src="images/awnet.jpeg" alt="AWNET" width="200" height="369">
-  </a>
+  [![Awnet][awnet-screenshot]]
 7. If you did everything right, it should start posting and show the information on the dashboard
 
 
@@ -181,3 +179,4 @@ Project Link: [https://github.com/armysarge/AmbientWeatherPWS](https://github.co
 [license-shield]: https://img.shields.io/github/license/armysarge/AmbientWeatherPWS.svg?style=for-the-badge
 [license-url]: https://github.com/armysarge/AmbientWeatherPWS/blob/main/LICENSE
 [product-screenshot]: images/screenshot.PNG
+[awnet-screenshot]: images/awnet.jpeg
