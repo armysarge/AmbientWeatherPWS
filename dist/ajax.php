@@ -6,6 +6,8 @@
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
     }   
+
+    $myObj = new stdClass();
     
     // Load Latest Values
     $sql = "SELECT *,".(($timezone >= 0)?"DATE_ADD":"DATE_SUB")."(dateutc, INTERVAL ".abs($timezone)." HOUR) correctdate FROM ".$dbtable." ORDER BY idWeather DESC LIMIT 1";
