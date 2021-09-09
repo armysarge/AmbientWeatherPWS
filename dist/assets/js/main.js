@@ -307,7 +307,7 @@ function loadCharts(){
   $("#HistoryBut").attr("disabled","disabled");
   $("#HistoryBut").html("<i class='fas fa-sync fa-spin'></i>&nbsp;&nbsp;Loading, Please wait...");
   $.ajax({
-    url:"/weather/chartData.php",
+    url:"chartData.php",
     method:"get",
     success:function(ajaxdata){
       solarchart = Highcharts.chart('solarchart', {
