@@ -18,8 +18,8 @@
     <a href="https://github.com/armysarge/AmbientWeatherPWS"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <!--<a href="https://github.com/armysarge/AmbientWeatherPWS">View Demo</a>
-    ·-->
+    <a href="http://shaunlinux.ddns.net/AmbientWeatherPWS.git/dist/">View Demo</a>
+    ·
     <a href="https://github.com/armysarge/AmbientWeatherPWS/issues">Report Bug</a>
     ·
     <a href="https://github.com/armysarge/AmbientWeatherPWS/issues">Request Feature</a>
@@ -103,6 +103,7 @@ Please ensure that you already have the following on your server:
     $password = "pass";
     $dbname = "DB";
     $dbtable = "Weather";
+    $PWS_IP = "192.168.0.2"; // Ambient Weather Device IP Address
     $timezone = 2;
     $hemisphere = "south"; // 'north' or 'south'
    ```
