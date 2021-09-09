@@ -162,7 +162,8 @@ Project Link: [https://github.com/armysarge/AmbientWeatherPWS](https://github.co
 ## Acknowledgements
 * [Font Awesome](https://fontawesome.com)
 * [HighCharts](https://www.highcharts.com)
-
+* [Perfect Scrollbar](https://github.com/mdbootstrap/perfect-scrollbar)
+* [Moment JS](https://github.com/moment/moment)
 
 
 
