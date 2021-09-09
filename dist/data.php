@@ -1,173 +1,184 @@
 <?php
   require 'config.php';
 
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }else{
-
-    $val = $conn->query('select 1 from '.$dbtable.' LIMIT 1');
-
-    if($val === FALSE)
-    {
-      $sql = "CREATE TABLE ".$dbtable."(".
-        "idWeather INT NOT NULL AUTO_INCREMENT, ".
-        "dateutc DATETIME NOT NULL, ".
-        
-        "tempinf DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "tempf DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp1f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp2f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp3f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp4f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp5f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp6f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp7f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp8f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp9f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "temp10f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-
-        "humidityin SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity1 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity2 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity3 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity4 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity5 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity6 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity7 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity8 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity9 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "humidity10 SMALLINT NULL DEFAULT NULL, ". // Percentage
-
-        "baromrelin DECIMAL(6,3) NULL DEFAULT NULL, ". //inHg
-        "baromabsin DECIMAL(6,3) NULL DEFAULT NULL, ". //inHg
-
-        "winddir SMALLINT NULL DEFAULT NULL, ". // 0-360 degrees
-        "windgustdir SMALLINT NULL DEFAULT NULL, ". // 0-360 degrees
-        "windspeedmph DECIMAL(6,3) NULL DEFAULT NULL, ".// Mph
-        "windgustmph DECIMAL(6,3) NULL DEFAULT NULL, ".// Mph
-        "maxdailygust DECIMAL(6,3) NULL DEFAULT NULL, ".// Mph
-        "windspdmph_avg2m DECIMAL(6,3) NULL DEFAULT NULL, ".// Average wind speed, 2 minute average , Mph
-        "winddir_avg2m SMALLINT NULL DEFAULT NULL, ".// Average wind direction, 2 minute average , 0-360 degrees
-        "windspdmph_avg10m DECIMAL(6,3) NULL DEFAULT NULL, ".// Average wind speed, 10 minute average , Mph
-        "winddir_avg10m SMALLINT NULL DEFAULT NULL, ".// Average wind direction, 10 minute average , 0-360 degrees
-        "windgustmphinterval DECIMAL(6,3) NULL DEFAULT NULL, ". //Max Wind Speed in update interval, the default is one minute Mph
-
-        "eventrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
-        "hourlyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
-        "dailyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
-        "weeklyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
-        "monthlyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
-        "yearlyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
-        "totalrain DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
-
-        "solarradiation DECIMAL(6,3) NULL DEFAULT NULL, ". // W/m2
-        "uv INT NULL DEFAULT NULL, ".
-        "co2 INT NULL DEFAULT NULL, ". //ppm
-        "co2_in INT NULL DEFAULT NULL, ". //indoor ppm
-        "co2_in_24h INT NULL DEFAULT NULL, ". //indoor 24 hour running average ppm
-
-        "pm25 DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor µg/m3
-        "pm25_24h DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor 24 hour running average µg/m3
-        "pm25_in DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor indoor µg/m3
-        "pm25_in_24h DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor indoor 24 hour running average µg/m3
-        "pm10_in DECIMAL(6,3) NULL DEFAULT NULL, ". //PM1.0 Air Quality Sensor indoor µg/m3
-        "pm10_in_24h DECIMAL(6,3) NULL DEFAULT NULL, ". //PM1.0 Air Quality Sensor indoor 24 hour running average µg/m3
-      
-        "pm_in_temp DECIMAL(6,3) NULL DEFAULT NULL, ". //Indoor PM sensor temperature Fahrenheit
-        "pm_in_humidity SMALLINT NULL DEFAULT NULL, ". //Indoor PM sensor humidity Percentage µg/m3
-
-        "soiltemp1 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp2 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp3 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp4 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp5 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp6 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp7 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp8 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp9 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soiltemp10 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
-        "soilhum1 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum2 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum3 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum4 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum5 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum6 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum7 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum8 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum9 SMALLINT NULL DEFAULT NULL, ". // Percentage
-        "soilhum10 SMALLINT NULL DEFAULT NULL, ". // Percentage
-
-        "leak1 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-        "leak2 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-        "leak3 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-        "leak4 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-
-        "lightning_time DOUBLE NULL DEFAULT NULL, ". // Last strike date and time,	Seconds since January 1, 1970
-        "lightning_day INT NULL DEFAULT NULL, ". // Number of strikes per day,	Seconds since January 1, 1970
-        "lightning_distance SMALLINT NULL DEFAULT NULL, ". // Distance of last strike,	Kilometers
-
-        "battout TINYINT NULL DEFAULT NULL, ".//Low battery indication, outdoor sensor array or suite
-        "battin TINYINT NULL DEFAULT NULL, ".//Low battery indication, indoor sensor or console
-        "batt1 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 1
-        "batt2 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 2
-        "batt3 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 3
-        "batt4 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 4
-        "batt5 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 5
-        "batt6 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 6
-        "batt7 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 7
-        "batt8 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 8
-        "batt9 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 9
-        "batt10 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 10
-        "battr1 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 1
-        "battr2 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 2
-        "battr3 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 3
-        "battr4 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 4
-        "battr5 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 5
-        "battr6 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 6
-        "battr7 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 7
-        "battr8 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 8
-        "battr9 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 9
-        "battr10 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 10
-        "batt_25 TINYINT NULL DEFAULT NULL, ".//Low battery indication, PM2.5
-        "batt_25in TINYINT NULL DEFAULT NULL, ".//Low battery indication, PM2.5 indoor
-        "batleak1 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-        "batleak2 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-        "batleak3 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-        "batleak4 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
-        "batt_lightning TINYINT NULL DEFAULT NULL, ".//Lighting detector battery
-        "battsm1 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 1 battery
-        "battsm2 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 2 battery
-        "battsm3 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 3 battery
-        "battsm4 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 4 battery
-        "battsm5 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 5 battery
-        "battsm6 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 6 battery
-        "battsm7 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 7 battery
-        "battsm8 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 8 battery
-        "battsm9 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 9 battery
-        "battsm10 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 10 battery
-        "battrain TINYINT NULL DEFAULT NULL, ".//Rain Gauge battery
-
-        "PRIMARY KEY (`idWeather`));";
-
-      if ($conn->query($sql) === TRUE) {
-        echo "New table created successfully";
-        $conn->query("CREATE UNIQUE INDEX WeatherID ON ".$dbtable."(idWeather);");
-        insertData($dbtable, $conn);
-      } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-        $fp = fopen(dirname(__FILE__). "/error.log", "w");
-        fwrite($fp, date("l jS \of F Y h:i:s A"). " --- " . $conn->error); 
-        fclose($fp);
-      }
-    }else{
-      insertData($dbtable, $conn);
-    }
+  if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+  } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+      $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  } else {
+      $ip = $_SERVER['REMOTE_ADDR'];
   }
 
+  if ($_SERVER['REQUEST_METHOD'] === 'GET' && $ip === $PWS_IP) {
+    // Create connection
+    $conn = new mysqli($servername, $username, $password, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }else{
+
+      $val = $conn->query('select 1 from '.$dbtable.' LIMIT 1');
+
+      if($val === FALSE)
+      {
+        $sql = "CREATE TABLE ".$dbtable."(".
+          "idWeather INT NOT NULL AUTO_INCREMENT, ".
+          "dateutc DATETIME NOT NULL, ".
+          
+          "tempinf DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "tempf DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp1f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp2f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp3f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp4f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp5f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp6f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp7f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp8f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp9f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "temp10f DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+
+          "humidityin SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity1 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity2 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity3 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity4 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity5 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity6 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity7 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity8 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity9 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "humidity10 SMALLINT NULL DEFAULT NULL, ". // Percentage
+
+          "baromrelin DECIMAL(6,3) NULL DEFAULT NULL, ". //inHg
+          "baromabsin DECIMAL(6,3) NULL DEFAULT NULL, ". //inHg
+
+          "winddir SMALLINT NULL DEFAULT NULL, ". // 0-360 degrees
+          "windgustdir SMALLINT NULL DEFAULT NULL, ". // 0-360 degrees
+          "windspeedmph DECIMAL(6,3) NULL DEFAULT NULL, ".// Mph
+          "windgustmph DECIMAL(6,3) NULL DEFAULT NULL, ".// Mph
+          "maxdailygust DECIMAL(6,3) NULL DEFAULT NULL, ".// Mph
+          "windspdmph_avg2m DECIMAL(6,3) NULL DEFAULT NULL, ".// Average wind speed, 2 minute average , Mph
+          "winddir_avg2m SMALLINT NULL DEFAULT NULL, ".// Average wind direction, 2 minute average , 0-360 degrees
+          "windspdmph_avg10m DECIMAL(6,3) NULL DEFAULT NULL, ".// Average wind speed, 10 minute average , Mph
+          "winddir_avg10m SMALLINT NULL DEFAULT NULL, ".// Average wind direction, 10 minute average , 0-360 degrees
+          "windgustmphinterval DECIMAL(6,3) NULL DEFAULT NULL, ". //Max Wind Speed in update interval, the default is one minute Mph
+
+          "eventrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
+          "hourlyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
+          "dailyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
+          "weeklyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
+          "monthlyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
+          "yearlyrainin DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
+          "totalrain DECIMAL(6,3) NULL DEFAULT NULL, ".// inches
+
+          "solarradiation DECIMAL(6,3) NULL DEFAULT NULL, ". // W/m2
+          "uv INT NULL DEFAULT NULL, ".
+          "co2 INT NULL DEFAULT NULL, ". //ppm
+          "co2_in INT NULL DEFAULT NULL, ". //indoor ppm
+          "co2_in_24h INT NULL DEFAULT NULL, ". //indoor 24 hour running average ppm
+
+          "pm25 DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor µg/m3
+          "pm25_24h DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor 24 hour running average µg/m3
+          "pm25_in DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor indoor µg/m3
+          "pm25_in_24h DECIMAL(6,3) NULL DEFAULT NULL, ". //PM2.5 Air Quality Sensor indoor 24 hour running average µg/m3
+          "pm10_in DECIMAL(6,3) NULL DEFAULT NULL, ". //PM1.0 Air Quality Sensor indoor µg/m3
+          "pm10_in_24h DECIMAL(6,3) NULL DEFAULT NULL, ". //PM1.0 Air Quality Sensor indoor 24 hour running average µg/m3
+        
+          "pm_in_temp DECIMAL(6,3) NULL DEFAULT NULL, ". //Indoor PM sensor temperature Fahrenheit
+          "pm_in_humidity SMALLINT NULL DEFAULT NULL, ". //Indoor PM sensor humidity Percentage µg/m3
+
+          "soiltemp1 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp2 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp3 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp4 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp5 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp6 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp7 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp8 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp9 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soiltemp10 DECIMAL(6,3) NULL DEFAULT NULL, ". //Fahrenheit
+          "soilhum1 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum2 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum3 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum4 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum5 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum6 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum7 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum8 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum9 SMALLINT NULL DEFAULT NULL, ". // Percentage
+          "soilhum10 SMALLINT NULL DEFAULT NULL, ". // Percentage
+
+          "leak1 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+          "leak2 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+          "leak3 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+          "leak4 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+
+          "lightning_time DOUBLE NULL DEFAULT NULL, ". // Last strike date and time,	Seconds since January 1, 1970
+          "lightning_day INT NULL DEFAULT NULL, ". // Number of strikes per day,	Seconds since January 1, 1970
+          "lightning_distance SMALLINT NULL DEFAULT NULL, ". // Distance of last strike,	Kilometers
+
+          "battout TINYINT NULL DEFAULT NULL, ".//Low battery indication, outdoor sensor array or suite
+          "battin TINYINT NULL DEFAULT NULL, ".//Low battery indication, indoor sensor or console
+          "batt1 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 1
+          "batt2 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 2
+          "batt3 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 3
+          "batt4 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 4
+          "batt5 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 5
+          "batt6 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 6
+          "batt7 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 7
+          "batt8 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 8
+          "batt9 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 9
+          "batt10 TINYINT NULL DEFAULT NULL, ".//Low battery indication, sensor 10
+          "battr1 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 1
+          "battr2 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 2
+          "battr3 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 3
+          "battr4 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 4
+          "battr5 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 5
+          "battr6 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 6
+          "battr7 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 7
+          "battr8 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 8
+          "battr9 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 9
+          "battr10 TINYINT NULL DEFAULT NULL, ".//Low battery indication, relay 10
+          "batt_25 TINYINT NULL DEFAULT NULL, ".//Low battery indication, PM2.5
+          "batt_25in TINYINT NULL DEFAULT NULL, ".//Low battery indication, PM2.5 indoor
+          "batleak1 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+          "batleak2 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+          "batleak3 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+          "batleak4 TINYINT NULL DEFAULT NULL, ". // discrete 0 or 1 0=no leak 1=leak detected 2=loss of communication for over 10 minutes.
+          "batt_lightning TINYINT NULL DEFAULT NULL, ".//Lighting detector battery
+          "battsm1 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 1 battery
+          "battsm2 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 2 battery
+          "battsm3 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 3 battery
+          "battsm4 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 4 battery
+          "battsm5 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 5 battery
+          "battsm6 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 6 battery
+          "battsm7 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 7 battery
+          "battsm8 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 8 battery
+          "battsm9 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 9 battery
+          "battsm10 TINYINT NULL DEFAULT NULL, ".//Soil Moisture 10 battery
+          "battrain TINYINT NULL DEFAULT NULL, ".//Rain Gauge battery
+
+          "PRIMARY KEY (`idWeather`));";
+
+        if ($conn->query($sql) === TRUE) {
+          echo "New table created successfully";
+          $conn->query("CREATE UNIQUE INDEX WeatherID ON ".$dbtable."(idWeather);");
+          insertData($dbtable, $conn);
+        } else {
+          echo "Error: " . $sql . "<br>" . $conn->error;
+          $fp = fopen(dirname(__FILE__). "/error.log", "w");
+          fwrite($fp, date("l jS \of F Y h:i:s A"). " --- " . $conn->error); 
+          fclose($fp);
+        }
+      }else{
+        insertData($dbtable, $conn);
+      }
+    }    
+    $conn->close();
+  }
+  
   function getValue($GETItem){
     return isset($_GET[$GETItem]) ? "'".str_replace("'", "",$_GET[$GETItem])."'" : 'NULL';
   }
@@ -322,6 +333,4 @@
       fclose($fp);
     }
   }
-
-  $conn->close();
 ?>
