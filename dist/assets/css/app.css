@@ -207,7 +207,7 @@
     transition: -webkit-transform 3000ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
     transition: transform 3000ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
     transition: transform 3000ms cubic-bezier(0.68, -0.55, 0.265, 1.55), -webkit-transform 3000ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    background: url(/weather/assets/images/compass.svg) center center no-repeat;
+    background: url(../images/compass.svg) center center no-repeat;
     top: -10px;
     left: -5px;
 	z-index:1;
