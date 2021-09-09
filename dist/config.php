@@ -4,6 +4,7 @@ $username = "pi";
 $password = "pipassword";
 $dbname = "ShaunPI";
 $dbtable = "Weather";
+$PWS_IP = "192.168.7.201"; // Ambient Weather Device IP Address
 $timezone = 2;
 $hemisphere = "south"; // 'north' or 'south'
 
