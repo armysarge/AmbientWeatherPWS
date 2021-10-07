@@ -32,8 +32,12 @@
         $myObj->WindDirection = intval($row["winddir"]);
         $myObj->WindSpeed = floatval($row["windspeedmph"]);
         $myObj->WindGust = floatval($row["windgustmph"]);
+        $myObj->EventRain = floatval($row["eventrainin"]);
+        $myObj->HourlyRain = floatval($row["hourlyrainin"]);
+        $myObj->DailyRain = floatval($row["dailyrainin"]);
         $myObj->SolarRadiation = floatval($row["solarradiation"]);
         $myObj->UV = floatval($row["uv"]);
+
     }
 
     // Get max & min values for the day

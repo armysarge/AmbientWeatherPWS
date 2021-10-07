@@ -3,6 +3,7 @@ OutdoorTemp = 0;
 UpdatedDate = new Date();
 TempUnit = (typeof getCookie("metric") == "undefined"?"°F":(getCookie("metric") == 1)?"°C":"°F");
 SpeedUnit = (typeof getCookie("metric") == "undefined"?"Mph":(getCookie("metric") == 1)?"Km/h":"Mph");
+RainUnit = (typeof getCookie("metric") == "undefined"?"inches":(getCookie("metric") == 1)?"mm":"inches");
 currentWeatherId = 0;
 var interval = undefined;
 var airpressureguage;
@@ -67,15 +68,18 @@ function getLatest(firstload){
           $("#IndoorHum .counter").attr("data-target",data.IndoorHum);
           $("#IndoorHumMin").attr("data-target",data.IndoorHumMin);
           $("#IndoorHumMax").attr("data-target",data.IndoorHumMax);
-          $("#IndoorHumYest").attr("data-target",Math.abs(data.IndoorHumYest));
           $("#IndoorReal").attr("data-target",convertTemp(data.IndoorHeatIndex)).attr("data-symbol"," "+TempUnit);
           $("#IndoorDew").attr("data-target",convertTemp(data.IndoorDewPoint)).attr("data-symbol"," "+TempUnit);
-          IndoorTempYest = (typeof getCookie("metric") == "undefined"?data.IndoorTempYestf:(getCookie("metric") == 1)?data.IndoorTempYestc:data.IndoorTempYestf);
-          $("#IndoorTempYest").attr("data-target",Math.abs(IndoorTempYest)).attr("data-symbol"," "+TempUnit);
-          addTrendIndicator(IndoorTempYest,"#IndoorTempYest");
-          addTrendIndicator(data.IndoorHumYest,"#IndoorHumYest");
+          if(!isNaN(IndoorTempYest)){
+            IndoorTempYest = (typeof getCookie("metric") == "undefined"?data.IndoorTempYestf:(getCookie("metric") == 1)?data.IndoorTempYestc:data.IndoorTempYestf);
+            $("#IndoorTempYest").attr("data-target",Math.abs(IndoorTempYest)).attr("data-symbol"," "+TempUnit);
+            addTrendIndicator(IndoorTempYest,"#IndoorTempYest");
+          }
+          if(!isNaN(IndoorHumYest)){
+            $("#IndoorHumYest").attr("data-target",Math.abs(data.IndoorHumYest));
+            addTrendIndicator(data.IndoorHumYest,"#IndoorHumYest");
+          }
           if (typeof tempindoorchart !== "undefined" && !firstload) {
-            //console.log(new Date(data.date),convertTemp(data.IndoorTemp));
             tempindoorchart.series[0].addPoint([data.date,convertTemp(data.IndoorTemp)],true,true);
             tempindoorchart.series[1].addPoint([data.date,convertTemp(data.IndoorHeatIndex)],true,true);
             tempindoorchart.series[2].addPoint([data.date,convertTemp(data.IndoorDewPoint)],true,true);
@@ -89,14 +93,18 @@ function getLatest(firstload){
           $("#OutdoorHum .counter").attr("data-target",data.OutdoorHum);
           $("#OutdoorHumMin").attr("data-target",data.OutdoorHumMin);
           $("#OutdoorHumMax").attr("data-target",data.OutdoorHumMax);
-          $("#OutdoorHumYest").attr("data-target",Math.abs(data.OutdoorHumYest));
+          if(!isNaN(data.OutdoorHumYest)){
+            $("#OutdoorHumYest").attr("data-target",Math.abs(data.OutdoorHumYest));
+            addTrendIndicator(data.OutdoorHumYest,"#OutdoorHumYest");
+          }
           $("#OutdoorReal").attr("data-target",convertTemp(data.OutdoorHeatIndex)).attr("data-symbol"," "+TempUnit);
           $("#OutdoorChill").attr("data-target",convertTemp(data.OutdoorWindChill)).attr("data-symbol"," "+TempUnit);
           $("#OutdoorDew").attr("data-target",convertTemp(data.OutdoorDewPoint)).attr("data-symbol"," "+TempUnit);
-          OutdoorTempYest = (typeof getCookie("metric") == "undefined"?data.OutdoorTempYestf:(getCookie("metric") == 1)?data.OutdoorTempYestc:data.OutdoorTempYestf);
-          $("#OutdoorTempYest").attr("data-target",Math.abs(OutdoorTempYest)).attr("data-symbol"," "+TempUnit);
-          addTrendIndicator(OutdoorTempYest,"#OutdoorTempYest");
-          addTrendIndicator(data.OutdoorHumYest,"#OutdoorHumYest");
+          if(!isNaN(data.OutdoorTempYest)){
+            OutdoorTempYest = (typeof getCookie("metric") == "undefined"?data.OutdoorTempYestf:(getCookie("metric") == 1)?data.OutdoorTempYestc:data.OutdoorTempYestf);
+            $("#OutdoorTempYest").attr("data-target",Math.abs(OutdoorTempYest)).attr("data-symbol"," "+TempUnit);
+            addTrendIndicator(OutdoorTempYest,"#OutdoorTempYest");
+          }
           if (typeof tempoutdoorchart !== "undefined" && !firstload) {
             tempoutdoorchart.series[0].addPoint([data.date,convertTemp(data.OutdoorTemp)],true,true);
             tempoutdoorchart.series[1].addPoint([data.date,convertTemp(data.OutdoorHeatIndex)]),true,true;
@@ -147,6 +155,14 @@ function getLatest(firstload){
               $(".uvindex").css("margin-top","24px");
               break;                                                 
           }
+
+          // Rain
+          $("#hourlyrain").attr("data-target",convertRain(data.HourlyRain)).attr("data-symbol"," "+RainUnit+"/hr");
+          $("#hourlyrain").parents(".rain-wrap").find("#water").css("height",(data.HourlyRain*50)+"px");
+          $("#dailyrain").attr("data-target",convertRain(data.DailyRain)).attr("data-symbol"," "+RainUnit);
+          $("#dailyrain").parents(".rain-wrap").find("#water").css("height",(data.DailyRain*50)+"px");
+          $("#eventrain").attr("data-target",convertRain(data.EventRain)).attr("data-symbol"," "+RainUnit);
+          $("#eventrain").parents(".rain-wrap").find("#water").css("height",(data.EventRain*50)+"px");
 
           // Air Pressure
           PrevHourAirPressureDiffRel = data.BarometerRel - data.BarometerRelPreviousHour;
@@ -995,6 +1011,13 @@ function convertTemp(val){
   Metric = getCookie("metric");
   Metric = (typeof Metric == "undefined"?0:Metric);
   val = (Metric == 1)?((val-32)*(5/9)).toFixed(1):val.toFixed(1);
+  return parseFloat(val);
+}
+
+function convertRain(val){
+  Metric = getCookie("metric");
+  Metric = (typeof Metric == "undefined"?0:Metric);
+  val = (Metric == 1)?(val*25.4).toFixed(1):val.toFixed(1);
   return parseFloat(val);
 }
 

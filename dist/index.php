@@ -378,7 +378,47 @@
                                         <div  class="row">
                                             <div class="col-md-12 rain-widget" style="position: relative;top: -40px;">
                                                 </br>
-                         
+                                                <div style='margin-top:20px'>
+                                                    <div class="rain-wrap">
+                                                        <div id="glasscontainer">
+                                                            <div id="glass">
+                                                                <div id="water"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wrap">
+                                                            <span class="device-formatted-data-point fdp">
+                                                                <div id="hourlyrain" data-decimals="2" class="counter" data-target="0">0</div>
+                                                            </span>
+                                                            <div class="label rate">Rate</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rain-wrap">
+                                                        <div id="glasscontainer">
+                                                            <div id="glass">
+                                                                <div id="water"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wrap">
+                                                            <span class="device-formatted-data-point fdp">
+                                                                <div id="dailyrain" data-decimals="2" class="counter" data-target="0">0</div>
+                                                            </span>
+                                                            <div class="label rate">Day</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rain-wrap">
+                                                        <div id="glasscontainer">
+                                                            <div id="glass">
+                                                                <div id="water"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="wrap">
+                                                            <span class="device-formatted-data-point fdp">
+                                                                <div id="eventrain" data-decimals="2" class="counter" data-target="0">0</div>
+                                                            </span>
+                                                            <div class="label rate">Event</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
