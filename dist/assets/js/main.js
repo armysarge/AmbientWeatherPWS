@@ -3,7 +3,7 @@ OutdoorTemp = 0;
 UpdatedDate = new Date();
 TempUnit = (typeof getCookie("metric") == "undefined"?"°F":(getCookie("metric") == 1)?"°C":"°F");
 SpeedUnit = (typeof getCookie("metric") == "undefined"?"Mph":(getCookie("metric") == 1)?"Km/h":"Mph");
-RainUnit = (typeof getCookie("metric") == "undefined"?"inches":(getCookie("metric") == 1)?"mm":"inches");
+RainUnit = (typeof getCookie("metric") == "undefined"?"in":(getCookie("metric") == 1)?"mm":"in");
 currentWeatherId = 0;
 var interval = undefined;
 var airpressureguage;
