@@ -53,6 +53,7 @@ $(document).ready(function(){
 
 function getLatest(firstload){
   $("#RefreshBut").attr("disabled","disabled");
+
   $.ajax({
       url:"ajax.php",
       method:"get",
@@ -314,6 +315,14 @@ function getLatest(firstload){
 
           setTimeout(runCounters,100);
           $("#RefreshBut").removeAttr("disabled");
+
+          if(firstload){
+            $(".preloader").fadeOut(function(){
+              $(this).remove();
+              $("#app").fadeIn();
+            })
+          }
+
         }
       }
   });
