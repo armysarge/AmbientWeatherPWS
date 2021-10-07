@@ -137,7 +137,6 @@
     -webkit-box-align: flex-top;
     -ms-flex-align: flex-top;
     align-items: flex-top;
-    padding: 0 10px;
 }
 
 .tempf .counter, .suff, .rain-wrap .counter{
@@ -542,7 +541,6 @@ on #pointer:before */
   stroke-width: 0.18;
   fill: #9ea1a4;
 }
-
 
 @keyframes rotate {
   0% {

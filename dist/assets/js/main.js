@@ -71,12 +71,12 @@ function getLatest(firstload){
           $("#IndoorHumMax").attr("data-target",data.IndoorHumMax);
           $("#IndoorReal").attr("data-target",convertTemp(data.IndoorHeatIndex)).attr("data-symbol"," "+TempUnit);
           $("#IndoorDew").attr("data-target",convertTemp(data.IndoorDewPoint)).attr("data-symbol"," "+TempUnit);
+          IndoorTempYest = (typeof getCookie("metric") == "undefined"?data.IndoorTempYestf:(getCookie("metric") == 1)?data.IndoorTempYestc:data.IndoorTempYestf);
           if(!isNaN(IndoorTempYest)){
-            IndoorTempYest = (typeof getCookie("metric") == "undefined"?data.IndoorTempYestf:(getCookie("metric") == 1)?data.IndoorTempYestc:data.IndoorTempYestf);
             $("#IndoorTempYest").attr("data-target",Math.abs(IndoorTempYest)).attr("data-symbol"," "+TempUnit);
             addTrendIndicator(IndoorTempYest,"#IndoorTempYest");
           }
-          if(!isNaN(IndoorHumYest)){
+          if(!isNaN(data.IndoorHumYest)){
             $("#IndoorHumYest").attr("data-target",Math.abs(data.IndoorHumYest));
             addTrendIndicator(data.IndoorHumYest,"#IndoorHumYest");
           }
@@ -101,8 +101,8 @@ function getLatest(firstload){
           $("#OutdoorReal").attr("data-target",convertTemp(data.OutdoorHeatIndex)).attr("data-symbol"," "+TempUnit);
           $("#OutdoorChill").attr("data-target",convertTemp(data.OutdoorWindChill)).attr("data-symbol"," "+TempUnit);
           $("#OutdoorDew").attr("data-target",convertTemp(data.OutdoorDewPoint)).attr("data-symbol"," "+TempUnit);
-          if(!isNaN(data.OutdoorTempYest)){
-            OutdoorTempYest = (typeof getCookie("metric") == "undefined"?data.OutdoorTempYestf:(getCookie("metric") == 1)?data.OutdoorTempYestc:data.OutdoorTempYestf);
+          OutdoorTempYest = (typeof getCookie("metric") == "undefined"?data.OutdoorTempYestf:(getCookie("metric") == 1)?data.OutdoorTempYestc:data.OutdoorTempYestf);
+          if(!isNaN(OutdoorTempYest)){
             $("#OutdoorTempYest").attr("data-target",Math.abs(OutdoorTempYest)).attr("data-symbol"," "+TempUnit);
             addTrendIndicator(OutdoorTempYest,"#OutdoorTempYest");
           }

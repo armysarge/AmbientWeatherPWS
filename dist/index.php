@@ -421,7 +421,7 @@
                                         <div  class="row">
                                             <div class="col-md-12 rain-widget" style="position: relative;top: -40px;">
                                                 </br>
-                                                <div style='margin-top:20px;width: 100%;text-align: center;'>
+                                                <div style='margin-top:35px;width: 100%;text-align: center;'>
                                                     <div class="rain-wrap">
                                                         <div id="glasscontainer">
                                                             <div id="glass">
