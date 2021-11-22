@@ -145,6 +145,10 @@
 	display: inline-block;
 }
 
+.rain-wrap .counter {
+    font-size: 17px;
+}
+
 .card{
 	min-height:250px;
 }
